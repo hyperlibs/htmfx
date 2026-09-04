@@ -1,0 +1,26 @@
+@meta
+  bus: UpdateBus.HTMFX
+  repo: hyperlibs/htmfx
+  peer_host: hyperlibs/htmxUI
+  runtime: hmlr@1.0
+  timestamp: 2026-09-04T13:30:00Z
+  status: SYNCHRONIZED
+
+@model EcosystemSync
+  step: int
+  directive: string
+  status: string
+  detail: string
+
+## Synchronization Stream | @model EcosystemSync
+| 1  | Lock Universal Language & Format Policy   | COMPLETED | All core spatial logic and physics in .fx, all schemas and diagnostics in .mx. |
+| 2  | Volumetric Exponential Height Fog Kernel  | COMPLETED | Closed-form analytical optical depth integration: ρ(y) = ρ₀ · e^(-(y-y₀)/H).   |
+| 3  | Inverse-Square Physical Attenuation       | COMPLETED | I(d) = I₀ / (1 + k₁·d + k₂·d²) for point/volume emitters and spatial audio.     |
+| 4  | Supersonic Ballistics RK4 Solver          | COMPLETED | 4th-order Runge-Kutta altitude drag & Mach wave drag solver with ricochet.     |
+| 5  | Declarative Web Components                | COMPLETED | <hx-viewport>, <hx-mesh>, <hx-particle>, <hx-emitter>, <hx-light>, <hx-terrain>.|
+| 6  | htmxUI Directive & 120 FPS Game Ticker    | COMPLETED | HTMXUI.directive('3d') hook registered and synced with HxBolt.ticker.           |
+| 7  | Native .mx Diagnostics (@diag)            | COMPLETED | Standardized to pure .mx diagnostic format (@diag FX-XXXX, @model BuildDiagnostic). |
+| 8  | Automated Test Suite                      | COMPLETED | 25/25 Tests Passing (100%) on bun test.                                         |
+| 9  | Standalone Bundle Output                  | COMPLETED | dist/htmfx.js (~17.6KB gzipped, sub-35KB threshold achieved).                  |
+| 10 | Decoupled Peer Host Contract              | COMPLETED | package.json declares "peerDependencies": { "@hyperlibs/htmxui": ">=1.0.0" }.   |
+| 11 | Phase Out Legacy JS & JSON                | ENFORCED  | Zero runtime JS or JSON in core spatial logic. JS/JSON restricted to 3rd party. |

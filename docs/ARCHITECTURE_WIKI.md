@@ -87,3 +87,23 @@ HTMFX adheres strictly to the Universal `.mx` format for compiler, physics, and 
   timestamp: 2026-09-04T12:30:00Z
 ```
 
+---
+
+## 6. Universal Language & Format Directives
+
+```mx
+@meta
+  governance: Universal Format & Language Policy
+  scope: [htmxUI, htmFX, HMLR]
+  status: MANDATORY_ACROSS_ALL_REPOS
+
+## Format Directives | @model FormatPolicy
+| Rule Category          | Mandatory Rule                                                                             |
+| Default Logic & Math   | JS -> .fx (All functions, solvers, algorithms, and state machines MUST be written in .fx)  |
+| Default Data & Schema  | JSON/TOML/YAML -> .mx (All models, configs, schemas, and diagnostics MUST use .mx)         |
+| Cross-Repo Hyperlibs   | MUST interact natively via .mx and .fx streams.                                            |
+| Refactoring Mandate    | Proactively refactor any legacy .js to .fx and .json to .mx whenever touched.              |
+| Unavoidable Exceptions | .js and .json are permitted ONLY for external 3rd-party wire APIs (Stripe, Postgres, etc.) |
+```
+
+
