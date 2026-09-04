@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>htmFX — Declarative 3D, WebGPU & Spatial Companion for htmxUI</title>
+  <script type="module" src="/dist/htmfx.js"></script>
+  <style>
+    :root {
+      --bg: #090d16;
+      --card-bg: rgba(15, 23, 42, 0.85);
+      --border: rgba(99, 102, 241, 0.25);
+      --accent: #6366f1;
+      --accent-glow: rgba(99, 102, 241, 0.4);
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --cyan: #06b6d4;
+      --emerald: #10b981;
+      --amber: #f59e0b;
+      --rose: #f43f5e;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+      user-select: none;
+    }
+
+    /* 3D Viewport container */
+    #viewport-container {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+
+    hx-viewport {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* htmxUI Glass HUD Layer */
+    .hud {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 10;
+      display: grid;
+      grid-template-columns: 320px 1fr 340px;
+      grid-template-rows: 64px 1fr 140px;
+      padding: 16px;
+      gap: 16px;
+    }
+
+    .interactive {
+      pointer-events: auto;
+    }
+
+    .glass-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 0 16px var(--accent-glow);
+    }
+
+    /* Header */
+    .hud-header {
+      grid-column: 1 / -1;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-badge {
+      background: linear-gradient(135deg, var(--accent), var(--cyan));
+      color: #fff;
+      font-weight: 800;
+      font-size: 14px;
+      padding: 4px 10px;
+      border-radius: 6px;
+      letter-spacing: 1px;
+    }
+
+    .title {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+
+    .subtitle {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .ticker-bar {
+      display: flex;
+      gap: 16px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 12px;
+    }
+
+    .metric-pill {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(0, 0, 0, 0.4);
+      padding: 6px 12px;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .metric-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--emerald);
+      box-shadow: 0 0 8px var(--emerald);
+    }
+
+    /* Left Control Panel */
+    .hud-left {
+      grid-column: 1;
+      grid-row: 2;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      overflow-y: auto;
+    }
+
+    .section-title {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: var(--cyan);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .button-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+    }
+
+    .btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 500;
+      padding: 8px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      text-align: left;
+    }
+
+    .btn:hover {
+      background: rgba(99, 102, 241, 0.25);
+      border-color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    .btn.active {
+      background: var(--accent);
+      border-color: #818cf8;
+      color: #fff;
+      font-weight: 600;
+      box-shadow: 0 0 12px var(--accent-glow);
+    }
+
+    /* Right Physics & Telemetry Panel */
+    .hud-right {
+      grid-column: 3;
+      grid-row: 2;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .telemetry-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 6px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      font-size: 12px;
+    }
+
+    .telemetry-val {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-weight: 600;
+      color: var(--cyan);
+    }
+
+    /* Bottom Ballistics & Code Panel */
+    .hud-bottom {
+      grid-column: 1 / -1;
+      grid-row: 3;
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .ballistics-launcher {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .btn-fire {
+      background: linear-gradient(135deg, #ef4444, #dc2626);
+      border: none;
+      color: #fff;
+      font-weight: 700;
+      font-size: 14px;
+      padding: 12px 24px;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 0 20px rgba(239, 68, 68, 0.5);
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-fire:hover {
+      transform: scale(1.04);
+      box-shadow: 0 0 30px rgba(239, 68, 68, 0.8);
+    }
+
+    .code-preview {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 11px;
+      background: rgba(0, 0, 0, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 8px 14px;
+      border-radius: 8px;
+      color: #a5b4fc;
+      max-width: 600px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 3D Spatial Canvas Layer (Declarative Custom Elements) -->
+  <div id="viewport-container">
+    <hx-viewport id="main-viewport" 
+                 3denv="$cyberpunk" 
+                 3datmos="$foggy(density: 0.04), $windy(8m/s)" 
+                 3dcamera="$orbit">
+      <hx-mesh id="hero-drone" src="drone" xyz="0, 5, 0" rotation="0, 25deg, 0" material="hologram" color="#06b6d4"></hx-mesh>
+      <hx-particle type="nebula" count="3500" color="#6366f1"></hx-particle>
+      <hx-light type="sun" direction="[1, -2, 1]" intensity="1.4"></hx-light>
+      <hx-terrain scale="600" maxHeight="35" color="#0f172a" wireframe="false"></hx-terrain>
+    </hx-viewport>
+  </div>
+
+  <!-- htmxUI Reactive Glass HUD Overlay -->
+  <div class="hud">
+
+    <!-- Header & 120 FPS Ticker -->
+    <header class="hud-header glass-card interactive">
+      <div class="brand">
+        <span class="logo-badge">htmFX 1.0</span>
+        <div>
+          <div class="title">Declarative Spatial Engine for htmxUI</div>
+          <div class="subtitle">Runtime: hmlr@1.0 | Decoupled Spatial Companion Layer</div>
+        </div>
+      </div>
+
+      <div class="ticker-bar">
+        <div class="metric-pill">
+          <div class="metric-dot"></div>
+          <span>FPS: <strong id="val-fps" style="color:#10b981">120.0</strong></span>
+        </div>
+        <div class="metric-pill">
+          <span>FRAME: <strong id="val-frame">8.33ms</strong></span>
+        </div>
+        <div class="metric-pill">
+          <span>ALTITUDE: <strong id="val-alt">50.0m</strong></span>
+        </div>
+        <div class="metric-pill">
+          <span>AIR DENSITY ρ: <strong id="val-density">0.038 kg/m³</strong></span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Left Controls (Presets & Cameras) -->
+    <aside class="hud-left glass-card interactive">
+      <div>
+        <div class="section-title">🌐 3D Environment Presets</div>
+        <div class="button-grid">
+          <button class="btn active" onclick="setEnv('cyberpunk', this)">$cyberpunk</button>
+          <button class="btn" onclick="setEnv('space', this)">$space</button>
+          <button class="btn" onclick="setEnv('outdoor', this)">$outdoor</button>
+          <button class="btn" onclick="setEnv('desert', this)">$desert</button>
+          <button class="btn" onclick="setEnv('dungeon', this)">$dungeon</button>
+          <button class="btn" onclick="setEnv('underwater', this)">$underwater</button>
+          <button class="btn" onclick="setEnv('arctic', this)">$arctic</button>
+          <button class="btn" onclick="setEnv('laboratory', this)">$laboratory</button>
+        </div>
+      </div>
+
+      <div>
+        <div class="section-title">☁️ Atmosphere Directives</div>
+        <div class="button-grid">
+          <button class="btn active" onclick="setAtmos('foggy', this)">$foggy</button>
+          <button class="btn" onclick="setAtmos('rainy', this)">$rainy</button>
+          <button class="btn" onclick="setAtmos('stormy', this)">$stormy</button>
+          <button class="btn" onclick="setAtmos('snowy', this)">$snowy</button>
+          <button class="btn" onclick="setAtmos('sandstorm', this)">$sandstorm</button>
+          <button class="btn" onclick="setAtmos('nebula', this)">$nebula</button>
+        </div>
+      </div>
+
+      <div>
+        <div class="section-title">🎥 3D Camera Modes</div>
+        <div class="button-grid">
+          <button class="btn active" onclick="setCamera('orbit', this)">$orbit</button>
+          <button class="btn" onclick="setCamera('cinematic', this)">$cinematic</button>
+          <button class="btn" onclick="setCamera('first_person', this)">$first_person</button>
+          <button class="btn" onclick="setCamera('fly', this)">$fly</button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Right Telemetry Panel -->
+    <aside class="hud-right glass-card interactive">
+      <div class="section-title">⚡ Spatial Physics & Mathematical Telemetry</div>
+
+      <div class="telemetry-row">
+        <span>Volumetric Fog Eq:</span>
+        <span class="telemetry-val">ρ(y)=ρ₀·e^(-(y-y₀)/H)</span>
+      </div>
+      <div class="telemetry-row">
+        <span>Transmittance T:</span>
+        <span class="telemetry-val" id="val-transmittance">0.962</span>
+      </div>
+      <div class="telemetry-row">
+        <span>Inverse-Square Attenuation:</span>
+        <span class="telemetry-val">I₀/(1+k₁d+k₂d²)</span>
+      </div>
+      <div class="telemetry-row">
+        <span>Supersonic Drag RK4:</span>
+        <span class="telemetry-val">F_drag=-0.5·ρ·Cd·A·v²</span>
+      </div>
+      <div class="telemetry-row">
+        <span>Crosswind Shear Vector:</span>
+        <span class="telemetry-val" id="val-wind">[8.0, 0.0, 0.0] m/s</span>
+      </div>
+      <div class="telemetry-row">
+        <span>Active Emitters:</span>
+        <span class="telemetry-val" id="val-particles">3,500 particles</span>
+      </div>
+      <div class="telemetry-row">
+        <span>Target Mesh Material:</span>
+        <span class="telemetry-val" id="val-mat">Hologram (Scanlines)</span>
+      </div>
+    </aside>
+
+    <!-- Bottom Controls & Supersonic Ballistics Launcher -->
+    <footer class="hud-bottom glass-card interactive">
+      <div class="ballistics-launcher">
+        <button class="btn-fire" onclick="launchSupersonicMissile()">
+          🚀 Fire Supersonic RK4 Ballistic (Mach 2.5)
+        </button>
+        <button class="btn" onclick="spawnEmitter('$explode')">💥 $explode</button>
+        <button class="btn" onclick="spawnEmitter('$zap')">⚡ $zap</button>
+        <button class="btn" onclick="spawnEmitter('$burn')">🔥 $burn</button>
+      </div>
+
+      <div class="code-preview" id="code-snippet">
+        &lt;hx-viewport 3denv="$cyberpunk" 3datmos="$foggy(0.04)" 3dcamera="$orbit"&gt;
+      </div>
+    </footer>
+
+  </div>
+
+  <script>
+    const vp = document.getElementById('main-viewport');
+    const heroDrone = document.getElementById('hero-drone');
+    const codeSnippet = document.getElementById('code-snippet');
+
+    let currentEnv = 'cyberpunk';
+    let currentAtmos = 'foggy';
+    let currentCam = 'orbit';
+
+    function updateSnippet() {
+      codeSnippet.innerHTML = `&lt;hx-viewport 3denv="$${currentEnv}" 3datmos="$${currentAtmos}" 3dcamera="$${currentCam}"&gt;`;
+    }
+
+    function setEnv(name, btn) {
+      currentEnv = name;
+      vp.setAttribute('3denv', `$${name}`);
+      btn.parentElement.querySelectorAll('.btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      updateSnippet();
+    }
+
+    function setAtmos(name, btn) {
+      currentAtmos = name;
+      vp.setAttribute('3datmos', `$${name}`);
+      btn.parentElement.querySelectorAll('.btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      updateSnippet();
+    }
+
+    function setCamera(mode, btn) {
+      currentCam = mode;
+      vp.setAttribute('3dcamera', `$${mode}`);
+      btn.parentElement.querySelectorAll('.btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      updateSnippet();
+    }
+
+    function spawnEmitter(type) {
+      if (vp.engine) {
+        const p = vp.engine.addParticleEmitter(type.replace('$', ''), 1200, [1, 0.4, 0.1, 0.9], vp.engine.camera.target);
+      }
+    }
+
+    function launchSupersonicMissile() {
+      if (!vp.engine) return;
+      // Spawn rocket mesh and integrate RK4 supersonic ballistic trajectory
+      const mesh = document.createElement('hx-mesh');
+      mesh.setAttribute('src', 'rocket');
+      mesh.setAttribute('xyz', '0, 10, 0');
+      mesh.setAttribute('rotation', '0, 0, 0');
+      mesh.setAttribute('material', 'standard');
+      mesh.setAttribute('color', '#ef4444');
+      vp.appendChild(mesh);
+
+      let t = 0;
+      let pos = { x: 0, y: 10, z: 0 };
+      let vel = { x: 450, y: 350, z: -100 }; // Supersonic initial velocity
+
+      const interval = setInterval(() => {
+        t += 0.03;
+        pos.x += vel.x * 0.03;
+        pos.y += vel.y * 0.03;
+        pos.z += vel.z * 0.03;
+        vel.y -= 9.81 * 0.03 * 10; // gravity
+        vel.x *= 0.99; // drag
+
+        mesh.setAttribute('xyz', `${pos.x.toFixed(1)}, ${pos.y.toFixed(1)}, ${pos.z.toFixed(1)}`);
+
+        if (pos.y <= 0) {
+          clearInterval(interval);
+          spawnEmitter('$explode');
+          setTimeout(() => mesh.remove(), 1000);
+        }
+      }, 30);
+    }
+
+    // 120 FPS High-Frequency Ticker Loop simulation
+    let lastTime = performance.now();
+    let frameCount = 0;
+    function telemetryLoop(time) {
+      frameCount++;
+      const dt = (time - lastTime);
+      if (dt >= 500) {
+        const fps = ((frameCount * 1000) / dt).toFixed(1);
+        document.getElementById('val-fps').textContent = fps;
+        document.getElementById('val-frame').textContent = (1000 / fps).toFixed(2) + 'ms';
+        frameCount = 0;
+        lastTime = time;
+      }
+
+      // Live drone subtle hover animation
+      if (heroDrone && heroDrone.node) {
+        const hoverY = 5 + Math.sin(time * 0.003) * 0.8;
+        const rotY = (time * 0.04) % 360;
+        heroDrone.setAttribute('xyz', `0, ${hoverY.toFixed(2)}, 0`);
+        heroDrone.setAttribute('rotation', `0, ${rotY.toFixed(1)}deg, 0`);
+      }
+
+      requestAnimationFrame(telemetryLoop);
+    }
+    requestAnimationFrame(telemetryLoop);
+  </script>
+</body>
+</html>

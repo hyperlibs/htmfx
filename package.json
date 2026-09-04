@@ -1,0 +1,36 @@
+{
+  "name": "htmfx",
+  "version": "1.0.0",
+  "description": "Declarative 3D, WebGPU & Spatial Simulation Companion for htmxUI",
+  "main": "dist/htmfx.cjs.js",
+  "module": "dist/htmfx.esm.js",
+  "browser": "dist/htmfx.js",
+  "types": "dist/types/index.d.ts",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build && tsc --emitDeclarationOnly",
+    "preview": "vite preview",
+    "test": "vitest run"
+  },
+  "keywords": [
+    "htmx",
+    "3d",
+    "webgpu",
+    "webgl",
+    "declarative",
+    "spatial",
+    "simulation",
+    "ballistics",
+    "volumetric-fog",
+    "particles",
+    "web-components"
+  ],
+  "author": "hyperlibs",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5.4.5",
+    "vite": "^5.2.11",
+    "vitest": "^1.6.0"
+  }
+}

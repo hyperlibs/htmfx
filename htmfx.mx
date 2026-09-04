@@ -1,0 +1,56 @@
+# @meta
+# project: htmFX
+# title: Declarative 3D, WebGPU & Spatial Simulation Companion for htmxUI
+# version: 1.0.0
+# runtime: hmlr@1.0
+# repo: github.com/hyperlibs/htmFX
+# license: MIT
+# architecture: Decoupled Spatial Companion Layer
+
+@type CameraMode = orbit* | first_person | third_person | cinematic | fly
+@type EnvPreset = space* | outdoor | cyberpunk | underwater | dungeon | desert | arctic | laboratory
+@type AtmosPreset = clear* | cloudy | rainy | stormy | foggy | windy | snowy | sandstorm | nebula
+@type EmitterType = burn | flare | radiate | splash | splatter | explode | implode | splinter | zap | slime | wave
+
+@model EnvConfig
+  preset: EnvPreset
+  atmos: AtmosPreset
+  camera: CameraMode
+  fog_density: float
+  wind_speed_ms: float
+  altitude_m: float
+
+@model SpatialEntity
+  id: string
+  mesh_src: string
+  xyz: [float, float, float]
+  rotation: [float, float, float]
+  scale: [float, float, float]
+  material: string
+
+## Core Directives & Macros | @model EnvConfig
+| preset     | atmos       | camera       | fog_density | wind_speed_ms | altitude_m |
+| $space     | $nebula     | $orbit       |        0.00 |          0.00 |  1000000.0 |
+| $outdoor   | $foggy      | $first_person|        0.08 |         12.50 |      500.0 |
+| $cyberpunk | $rainy      | $cinematic   |        0.04 |          8.00 |       50.0 |
+| $desert    | $sandstorm  | $orbit       |        0.15 |         25.00 |     1200.0 |
+| $dungeon   | $clear      | $first_person|        0.02 |          0.00 |     -200.0 |
+
+## Spatial Physics & Mathematical Foundations
+
+### 1. Volumetric Exponential Height Fog Field
+Equation: ρ(y) = ρ₀ · e^(-(y - y₀) / H)
+- In valleys (y = 500m), air is dense (ρ ≈ 0.85).
+- On mountain peaks (y = 2000m), air clears (ρ ≈ 0.02), creating a volumetric sea of clouds below the camera.
+
+### 2. Inverse-Square Distance Attenuation for Point/Volume Emitters
+Equation: I(d) = I₀ / (1 + k₁·d + k₂·d²)
+- Applied to $burn, $explode, $zap, spatial 3D audio, and heat haze vertex distortion.
+
+### 3. Supersonic Ballistics & Altitude Drag Solver
+Equation: F_drag = -0.5 · ρ(y) · C_d(Mach) · A · ||v|| · v
+- Trajectory integrated via 4th-Order Runge-Kutta (RK4) accounting for crosswind shear and material ricochet matrices.
+
+## Spatial Coordinate Grammar (.mx)
+@pin[top-left] -> Screen-space HUD attachment
+@3d[x, y, z]   -> World-space 3D transform anchor
