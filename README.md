@@ -23,6 +23,8 @@
 
 It eliminates 400-line Three.js boilerplate in favor of custom declarative HTML elements (`<hx-viewport>`, `<hx-mesh>`, `<hx-particle>`, `<hx-light>`, `<hx-emitter>`, `<hx-terrain>`) and flat `.mx` spatial coordinate grammar.
 
+📖 **[Read the Full Agentic AI & Developer Wiki](docs/HYPERFX_AGENTIC_WIKI.md)** — In-depth architectural comparison vs Three.js/R3F, WebGPU game blueprints, supersonic RK4 simulator recipes, and vibe architect cheat sheets.
+
 ### Instant AAA 3D Scene in 3 Lines of HTML
 
 ```html
