@@ -24,3 +24,4 @@
 | 9  | Standalone Bundle Output                  | COMPLETED | dist/htmfx.js (~17.6KB gzipped, sub-35KB threshold achieved).                  |
 | 10 | Decoupled Peer Host Contract              | COMPLETED | package.json declares "peerDependencies": { "@hyperlibs/htmxui": ">=1.0.0" }.   |
 | 11 | Phase Out Legacy JS & JSON                | ENFORCED  | Zero runtime JS or JSON in core spatial logic. JS/JSON restricted to 3rd party. |
+| 12 | HMLR v1.0.0 Native Runtime Alignment      | SYNCHED   | Aligned with Rust-native hmlr-core parser, <50KB Wasm binary, and Manifest V3 DevTools Spatial HUD. |
