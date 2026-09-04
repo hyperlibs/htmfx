@@ -12,11 +12,19 @@ export * from './core/materials.fx';
 export * from './core/gltf-loader.fx';
 export * from './core/engine.fx';
 
-// Physics Solvers
+// Physics Solvers & Dynamic Forces
 export * from './physics/fog-field.fx';
 export * from './physics/attenuation.fx';
 export * from './physics/ballistics-rk4.fx';
 export * from './physics/collision.fx';
+export * from './physics/forces.fx';
+export * from './physics/integrators.fx';
+export * from './physics/rigid-body-3d.fx';
+export * from './physics/constraints.fx';
+
+// 200+ Spatial FX & Flow Fields
+export * from './fx/flow-fields.fx';
+export * from './fx/particle-catalogue.fx';
 
 // Parsers & Grammars
 export * from './parser/units.fx';
