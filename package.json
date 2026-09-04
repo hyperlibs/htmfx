@@ -2,18 +2,22 @@
   "name": "htmfx",
   "version": "1.0.0",
   "description": "Declarative 3D, WebGPU & Spatial Simulation Companion for htmxUI",
-  "main": "dist/htmfx.cjs.js",
-  "module": "dist/htmfx.esm.js",
+  "main": "dist/htmfx.js",
+  "module": "dist/htmfx.js",
   "browser": "dist/htmfx.js",
   "types": "dist/types/index.d.ts",
   "type": "module",
   "scripts": {
+    "build": "bun run scripts/build.ts",
+    "test": "bun test",
     "dev": "vite",
-    "build": "vite build && tsc --emitDeclarationOnly",
-    "preview": "vite preview",
-    "test": "vitest run"
+    "preview": "vite preview"
+  },
+  "peerDependencies": {
+    "@hyperlibs/htmxui": ">=1.0.0"
   },
   "keywords": [
+    "htmxui",
     "htmx",
     "3d",
     "webgpu",

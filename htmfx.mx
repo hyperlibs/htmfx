@@ -4,6 +4,7 @@
   version: 1.0.0
   runtime: hmlr@1.0
   repo: github.com/hyperlibs/htmFX
+  peer_host: github.com/hyperlibs/htmxUI
   license: MIT
   architecture: Decoupled Spatial Companion Layer
 
