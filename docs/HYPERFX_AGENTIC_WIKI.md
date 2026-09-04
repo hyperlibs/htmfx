@@ -256,19 +256,25 @@ Seamlessly update 3D entities from your backend API without writing frontend sta
 
 ---
 
-## 7. Deterministic AI Self-Healing & Diagnostics API
+## 7. Deterministic AI Self-Healing & Diagnostics API (`.mx`)
 
-HyperFX includes a machine-parseable JSON error reporter that empowers Agentic AIs to diagnose and repair syntax or spatial errors in a single pass:
+In alignment with the Universal `.mx` policy, HyperFX rejects bloated JSON error blobs in favor of native `.mx` machine-parseable diagnostics (`@diag`, `@model BuildDiagnostic`), empowering Agentic AIs to parse, diagnose, and self-heal in a single pass:
 
-```json
-{
-  "code": "HF021_INVALID_ATMOS_DIRECTIVE",
-  "type": "DIRECTIVE_ERROR",
-  "description": "Unrecognized atmosphere macro parameter 'windy(1500m/s)' exceeds supersonic threshold without Mach prefix.",
-  "culprit": "<hx-viewport 3datmos=\"$windy(1500m/s)\">",
-  "fix_suggestion": "Specify speed in Mach format: 3datmos=\"$windy(Mach 4.3)\" or standard wind velocity: 3datmos=\"$windy(25m/s)\".",
-  "timestamp": "2026-09-04T12:20:00.000Z"
-}
+```text
+@model BuildDiagnostic
+  code: string
+  type: string
+  description: string
+  culprit: string
+  fix_suggestion: string
+  timestamp: string
+
+@diag FX-0021
+  type: DIRECTIVE_ERROR
+  description: Unrecognized atmosphere macro parameter 'windy(1500m/s)' exceeds supersonic threshold without Mach prefix.
+  culprit: <hx-viewport 3datmos="$windy(1500m/s)">
+  fix_suggestion: Specify speed in Mach format: 3datmos="$windy(Mach 4.3)" or standard wind velocity: 3datmos="$windy(25m/s)".
+  timestamp: 2026-09-04T12:30:00.000Z
 ```
 
 ---

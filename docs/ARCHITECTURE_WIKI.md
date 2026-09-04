@@ -64,3 +64,26 @@ HxBolt.ticker.subscribe((timestamp, dt) => {
   // Synchronized frame loop
 });
 ```
+
+---
+
+## 5. Machine-Parseable Diagnostic Telemetry (`.mx`)
+HTMFX adheres strictly to the Universal `.mx` format for compiler, physics, and runtime diagnostic emissions:
+
+```text
+@model BuildDiagnostic
+  code: string
+  type: string
+  description: string
+  culprit: string
+  fix_suggestion: string
+  timestamp: string
+
+@diag FX-0042
+  type: DIRECTIVE_ERROR
+  description: Unrecognized atmosphere parameter
+  culprit: <hx-viewport 3datmos="$windy(1500m/s)">
+  fix_suggestion: Use $windy(Mach 4.3)
+  timestamp: 2026-09-04T12:30:00Z
+```
+
