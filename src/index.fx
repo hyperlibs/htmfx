@@ -26,6 +26,9 @@ export * from './physics/constraints.fx';
 export * from './fx/flow-fields.fx';
 export * from './fx/particle-catalogue.fx';
 
+// Spatial Edge DB (InnoDB-style Flat Spatial Storage Engine)
+export * from './db/spatial-edge-db.fx';
+
 // Parsers & Grammars
 export * from './parser/units.fx';
 export * from './parser/macro-parser.fx';
