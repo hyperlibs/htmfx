@@ -361,6 +361,15 @@ export class Engine {
     cancelAnimationFrame(this.animationFrameId);
   }
 
+  tick(dt: number, time?: number): void {
+    if (time !== undefined) {
+      this.lastTime = time;
+    }
+    this.totalTime += dt;
+    this.update(dt);
+    this.render();
+  }
+
   update(dt: number): void {
     this.resize();
     this.camera.update(dt);
