@@ -1,6 +1,6 @@
 /**
  * htmFX HTMX PRO Directives & Signals Companion Bridge (.fx)
- * Registers HTMXPRO.directive('3d', ...) / HTMXUI.directive and synchronizes with HxBolt reactive tickers.
+ * Registers HTMXPRO.directive('3d', ...) and synchronizes with HxBolt reactive tickers.
  */
 
 import { Engine } from '../core/engine.fx';
@@ -25,8 +25,8 @@ export class HtmxProDirective {
 
     const win = window as any;
 
-    // Direct registration with HTMX PRO / HTMXUI directive pipeline
-    const htmxEngine = win.HTMXPRO || win.HTMXUI;
+    // Direct registration with HTMX PRO directive pipeline
+    const htmxEngine = win.HTMXPRO;
     if (htmxEngine && typeof htmxEngine.directive === 'function') {
       htmxEngine.directive('3d', (el: HTMLElement, binding: any) => {
         HtmxProDirective.mount(el, binding);
@@ -119,7 +119,3 @@ export class HtmxProDirective {
     return null;
   }
 }
-
-// Backward-compatible alias for existing projects
-export const HtmxUIDirective = HtmxProDirective;
-

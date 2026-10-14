@@ -40,7 +40,7 @@ export * from './presets/atmospheres.fx';
 
 // HTMX & HTMX PRO Bridges
 export * from './htmx/htmx-bridge.fx';
-export * from './htmxui/htmxui-directive.fx';
+export * from './htmxpro/htmxpro-directive.fx';
 
 // Web Components
 import { HxViewportElement } from './elements/hx-viewport.fx';
@@ -53,11 +53,10 @@ import { HxCameraElement } from './elements/hx-camera.fx';
 import { HxAudioElement } from './elements/hx-audio.fx';
 import { HxColliderElement } from './elements/hx-collider.fx';
 import { HtmxBridge } from './htmx/htmx-bridge.fx';
-import { HtmxProDirective, HtmxUIDirective } from './htmxui/htmxui-directive.fx';
+import { HtmxProDirective } from './htmxpro/htmxpro-directive.fx';
 
 export {
   HtmxProDirective,
-  HtmxUIDirective,
   HxViewportElement,
   HxMeshElement,
   HxParticleElement,
@@ -83,13 +82,13 @@ if (typeof window !== 'undefined' && typeof customElements !== 'undefined') {
 
   // Initialize bridges
   HtmxBridge.init();
-  HtmxUIDirective.register();
+  HtmxProDirective.register();
 
   // Global namespace exposure
   const globalObj = window as any;
   globalObj.htmFX = globalObj.HtmFX = {
     version: '1.0.0',
-    mount: HtmxUIDirective.mount,
+    mount: HtmxProDirective.mount,
     elements: {
       HxViewportElement,
       HxMeshElement,

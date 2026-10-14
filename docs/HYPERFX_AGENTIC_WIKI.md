@@ -313,7 +313,7 @@ In alignment with the Universal `.mx` policy, HyperFX rejects bloated JSON error
 
 1. **Keep it declarative**: Use HTML components and `.mx` spatial grammar.
 2. **Keep it functional**: Implement math & simulation algorithms in `.fx` files.
-3. **Synchronize with hypermedia**: Mount via `HTMXPRO.directive('3d')` (or `HTMXUI.directive`) and sync with `HxBolt.ticker`.
+3. **Synchronize with hypermedia**: Mount via `HTMXPRO.directive('3d')` and sync with `HxBolt.ticker`.
 4. **Deploy lean**: Standalone bundle `dist/htmfx.js` is only **~17.6 KB gzipped**.
 
 *HyperFX is maintained by [hyperlibs](https://github.com/hyperlibs).*

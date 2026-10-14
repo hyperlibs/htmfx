@@ -113,5 +113,5 @@ let computeDistanceFalloff (dist: float) (i0: Intensity) (k1: float) (k2: float)
 
 ## Exported Bundle & Bridge
 - Standalone Library: `dist/htmfx.js` (~17.6KB gzipped)
-- HTMX PRO Directive Hook: `HTMXPRO.directive('3d', (el, binding) => HtmFX.mount(el, binding))` (also supports `HTMXUI.directive`)
+- HTMX PRO Directive Hook: `HTMXPRO.directive('3d', (el, binding) => HtmFX.mount(el, binding))`
 - Fallback Pipeline: Auto-detects WebGPU (`navigator.gpu`) with seamless WebGL2 fallback.

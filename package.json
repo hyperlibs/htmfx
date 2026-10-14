@@ -14,12 +14,10 @@
     "preview": "vite preview"
   },
   "peerDependencies": {
-    "@hyperlibs/htmxpro": ">=1.0.0",
-    "@hyperlibs/htmxui": ">=1.0.0"
+    "@hyperlibs/htmxpro": ">=1.0.0"
   },
   "keywords": [
     "htmxpro",
-    "htmxui",
     "htmx",
     "3d",
     "webgpu",
