@@ -1,13 +1,13 @@
 /**
- * htmFX htmxUI Directives & Signals Companion Bridge (.fx)
- * Registers HTMXUI.directive('3d', ...) and synchronizes with HxBolt reactive tickers.
+ * htmFX HTMX PRO Directives & Signals Companion Bridge (.fx)
+ * Registers HTMXPRO.directive('3d', ...) / HTMXUI.directive and synchronizes with HxBolt reactive tickers.
  */
 
 import { Engine } from '../core/engine.fx';
 import { MacroParser } from '../parser/macro-parser.fx';
 import { UnitParser } from '../parser/units.fx';
 
-export class HtmxUIDirective {
+export class HtmxProDirective {
   private static registered = false;
   private static activeEngines = new Set<Engine>();
 
@@ -25,10 +25,11 @@ export class HtmxUIDirective {
 
     const win = window as any;
 
-    // Direct registration with HTMXUI directive pipeline
-    if (win.HTMXUI && typeof win.HTMXUI.directive === 'function') {
-      win.HTMXUI.directive('3d', (el: HTMLElement, binding: any) => {
-        HtmxUIDirective.mount(el, binding);
+    // Direct registration with HTMX PRO / HTMXUI directive pipeline
+    const htmxEngine = win.HTMXPRO || win.HTMXUI;
+    if (htmxEngine && typeof htmxEngine.directive === 'function') {
+      htmxEngine.directive('3d', (el: HTMLElement, binding: any) => {
+        HtmxProDirective.mount(el, binding);
       });
     }
 
@@ -36,7 +37,7 @@ export class HtmxUIDirective {
     if (win.HxBolt && typeof win.HxBolt.ticker === 'function') {
       win.HxBolt.ticker.subscribe((timestamp: number, dt: number) => {
         // 1. Tick all registered standalone active engines
-        HtmxUIDirective.activeEngines.forEach(engine => {
+        HtmxProDirective.activeEngines.forEach(engine => {
           if (engine.isRunning) {
             engine.tick(dt, timestamp);
           }
@@ -74,7 +75,7 @@ export class HtmxUIDirective {
       if (!engine) {
         engine = new Engine(canvasEl);
         (canvasEl as any).__htmfx_engine = engine;
-        HtmxUIDirective.registerEngine(engine);
+        HtmxProDirective.registerEngine(engine);
         engine.start();
       }
 
@@ -118,3 +119,7 @@ export class HtmxUIDirective {
     return null;
   }
 }
+
+// Backward-compatible alias for existing projects
+export const HtmxUIDirective = HtmxProDirective;
+

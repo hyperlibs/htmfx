@@ -1,15 +1,15 @@
-# Architecture Wiki: htmFX (Spatial Computing Companion for htmxUI)
+# Architecture Wiki: htmFX (Spatial Computing Companion for HTMX PRO)
 
 ## 1. Executive Summary
-`htmFX` is a decoupled, ultra-lightweight declarative 3D, WebGPU, and spatial simulation companion library for `htmxUI`. It eliminates heavy imperative 3D boilerplate (such as 400-line Three.js scripts) in favor of custom declarative HTML elements (`<hx-viewport>`, `<hx-mesh>`, `<hx-particle>`, `<hx-light>`, `<hx-emitter>`, `<hx-terrain>`) and flat `.mx` spatial coordinate grammar.
+`htmFX` is a decoupled, ultra-lightweight declarative 3D, WebGPU, and spatial simulation companion library for `HTMX PRO`. It eliminates heavy imperative 3D boilerplate (such as 400-line Three.js scripts) in favor of custom declarative HTML elements (`<hx-viewport>`, `<hx-mesh>`, `<hx-particle>`, `<hx-light>`, `<hx-emitter>`, `<hx-terrain>`) and flat `.mx` spatial coordinate grammar.
 
 ```
 +-------------------------------------------------------------------------+
-|                               htmxUI Layer                              |
+|                              HTMX PRO Layer                             |
 |   (HxBolt Signals, HxBolt.ticker 120FPS Game Loop, HxForm, HxFlash)    |
 +-------------------------------------------------------------------------+
                                     |
-            HTMXUI.directive('3d', (el, b) => HtmFX.mount(el, b))
+            HTMXPRO.directive('3d', (el, b) => HtmFX.mount(el, b))
                                     v
 +-------------------------------------------------------------------------+
 |                               htmFX Layer                               |
@@ -57,7 +57,7 @@ Flat `.mx` declarations replace nested div trees with direct spatial anchors:
 ## 4. Directive and Ticker Integration
 ```typescript
 // Directive Registration
-HTMXUI.directive('3d', (el, binding) => HtmFX.mount(el, binding));
+HTMXPRO.directive('3d', (el, binding) => HtmFX.mount(el, binding));
 
 // 120 FPS Game Ticker Synchronization
 HxBolt.ticker.subscribe((timestamp, dt) => {
@@ -94,7 +94,7 @@ HTMFX adheres strictly to the Universal `.mx` format for compiler, physics, and 
 ```mx
 @meta
   governance: Universal Format & Language Policy
-  scope: [htmxUI, htmFX, HMLR]
+  scope: [HTMX PRO, htmFX, HMLR]
   status: MANDATORY_ACROSS_ALL_REPOS
 
 ## Format Directives | @model FormatPolicy

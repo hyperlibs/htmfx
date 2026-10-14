@@ -43,7 +43,7 @@ The catalogue is divided across 6 fundamental physical categories:
 
 ---
 
-## 🚀 Declarative HTML & htmxUI Usage
+## 🚀 Declarative HTML & HTMX PRO Usage
 
 ### Mounting via Web Components
 ```html
@@ -59,7 +59,7 @@ The catalogue is divided across 6 fundamental physical categories:
 </hx-viewport>
 ```
 
-### Declarative htmxUI Spatial Directive
+### Declarative HTMX PRO Spatial Directive
 ```html
 <div hx-3d="3denv:$cyberpunk; 3datmos:$rainy; 3dcam:orbital; 3dfx:$plasma_shield"
      style="width: 100vw; height: 100vh;">

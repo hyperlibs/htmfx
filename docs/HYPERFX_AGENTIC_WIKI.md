@@ -1,4 +1,4 @@
-# 🧠 The Ultimate Wiki for Agentic AI Builders, Vibe Architects & Smart Developers: HyperFX on htmxUI
+# 🧠 The Ultimate Wiki for Agentic AI Builders, Vibe Architects & Smart Developers: HyperFX on HTMX PRO
 
 > **"Eliminate 400 lines of Three.js boilerplate. Replace div soup with flat spatial coordinates. Build AAA WebGPU games, supersonic physics simulators, and reactive hypermedia worlds with 3 lines of HTML."**
 
@@ -13,7 +13,7 @@
 6. [Building Real-World WebGPU Games & Simulators: Complete Blueprints](#6-building-real-world-webgpu-games--simulators-complete-blueprints)
    - *Blueprint A: Supersonic Ballistics & Missile Defense Simulator (RK4)*
    - *Blueprint B: Cyberpunk Drone Flight & Volumetric Exponential Fog*
-   - *Blueprint C: Server-Driven Hypermedia Battlefield HUD with `htmxUI` Signals*
+   - *Blueprint C: Server-Driven Hypermedia Battlefield HUD with `HTMX PRO` Signals*
 7. [Deterministic AI Self-Healing & Diagnostics API](#7-deterministic-ai-self-healing--diagnostics-api)
 8. [Vibe Architect Quickstart Cheat Sheet](#8-vibe-architect-quickstart-cheat-sheet)
 
@@ -25,17 +25,17 @@ Modern 3D web development is plagued by two extremes:
 1. **Imperative Monoliths**: 500-line WebGL setup files, manual render loop plumbing, and massive 600KB+ runtime bundles.
 2. **SPA / VDOM Bloat**: React Three Fiber (R3F) setups that introduce heavy JSX reconcilers, fiber hooks, and state synchronization jank.
 
-`htmxUI` + `HyperFX` (`htmFX`) + `HMLR` introduces a clean, decoupled 3-tier architecture:
+`HTMX PRO` + `HyperFX` (`htmFX`) + `HMLR` introduces a clean, decoupled 3-tier architecture:
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │                          1. REACTIVE HYPERMEDIA LAYER                       │
-│           htmxUI (github.com/hyperlibs/htmxUI) — 40KB Gzipped               │
+│           HTMX PRO (github.com/hyperlibs/htmxpro) — 40KB Gzipped            │
 │  • HxBolt Signals & Reactive State Management                               │
 │  • 120 FPS High-Frequency Game Loop Ticker (HxBolt.ticker)                  │
 │  • Server-Driven State Morphing (hx-swap, hx-get, hx-trigger)               │
 └──────────────────────────────────────┬──────────────────────────────────────┘
-                                       │ HTMXUI.directive('3d', ...)
+                                       │ HTMXPRO.directive('3d', ...)
                                        ▼
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │                       2. DECLARATIVE SPATIAL COMPANION                      │
@@ -229,7 +229,7 @@ $$\vec{a}(t, \vec{r}, \vec{v}) = \vec{g} + \frac{\vec{F}_{\text{drag}}}{m}$$
 
 ---
 
-### 📡 Blueprint C: Server-Driven Hypermedia Battlefield HUD with `htmxUI` Signals
+### 📡 Blueprint C: Server-Driven Hypermedia Battlefield HUD with `HTMX PRO` Signals
 
 Seamlessly update 3D entities from your backend API without writing frontend state management:
 
@@ -313,7 +313,7 @@ In alignment with the Universal `.mx` policy, HyperFX rejects bloated JSON error
 
 1. **Keep it declarative**: Use HTML components and `.mx` spatial grammar.
 2. **Keep it functional**: Implement math & simulation algorithms in `.fx` files.
-3. **Synchronize with hypermedia**: Mount via `HTMXUI.directive('3d')` and sync with `HxBolt.ticker`.
+3. **Synchronize with hypermedia**: Mount via `HTMXPRO.directive('3d')` (or `HTMXUI.directive`) and sync with `HxBolt.ticker`.
 4. **Deploy lean**: Standalone bundle `dist/htmfx.js` is only **~17.6 KB gzipped**.
 
 *HyperFX is maintained by [hyperlibs](https://github.com/hyperlibs).*

@@ -1,10 +1,10 @@
 @meta
   project: htmFX
-  title: Declarative 3D, WebGPU & Spatial Simulation Companion for htmxUI
+  title: Declarative 3D, WebGPU & Spatial Simulation Companion for HTMX PRO
   version: 1.0.0
   runtime: hmlr@1.0
   repo: github.com/hyperlibs/htmFX
-  peer_host: github.com/hyperlibs/htmxUI
+  peer_host: github.com/hyperlibs/htmxpro
   license: MIT
   architecture: Decoupled Spatial Companion Layer
 
@@ -30,7 +30,7 @@
   material: string
 
 # htmFX: Declarative 3D & Spatial Engine Specification
-A lightweight (~35KB), declarative WebGL/WebGPU companion for htmxUI. 
+A lightweight (~35KB), declarative WebGL/WebGPU companion for HTMX PRO. 
 Eliminates 400-line Three.js boilerplate in favor of declarative HTML components (<hx-viewport>, <hx-mesh>) and flat .mx spatial coordinate grammar.
 
 ## Core Directives & Macros | @model EnvConfig
@@ -83,7 +83,7 @@ Equation: F_drag = -0.5 · ρ(y) · C_d(Mach) · A · ||v|| · v
 @3d[0, 5, -20]:         3D.Mesh("/models/satellite.gltf", spin: 0.01)
 @3d[0, 5, -20]:         3D.Emitter(type: "$burn", intensity: 0.8)
 
-# 2D Screen Anchors (HTMXUI HUD)
+# 2D Screen Anchors (HTMX PRO HUD)
 @pin[top-left]:         Panel.HUD("Satellite Telemetry", sub: "WebGPU Active")
 @pin[bottom-bar]:       ActionBar(
                           Button("⚡ Pulse Thruster", action: $flare('#target'); $sound('ping')),
@@ -113,5 +113,5 @@ let computeDistanceFalloff (dist: float) (i0: Intensity) (k1: float) (k2: float)
 
 ## Exported Bundle & Bridge
 - Standalone Library: `dist/htmfx.js` (~17.6KB gzipped)
-- HTMXUI Directive Hook: `HTMXUI.directive('3d', (el, binding) => HtmFX.mount(el, binding))`
+- HTMX PRO Directive Hook: `HTMXPRO.directive('3d', (el, binding) => HtmFX.mount(el, binding))` (also supports `HTMXUI.directive`)
 - Fallback Pipeline: Auto-detects WebGPU (`navigator.gpu`) with seamless WebGL2 fallback.

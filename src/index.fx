@@ -1,5 +1,5 @@
 /**
- * htmFX: Declarative 3D, WebGPU & Spatial Simulation Companion for htmxUI (.fx)
+ * htmFX: Declarative 3D, WebGPU & Spatial Simulation Companion for HTMX PRO (.fx)
  * Version: 1.0.0
  * Architecture: Decoupled Spatial Companion Layer
  */
@@ -38,7 +38,7 @@ export * from './parser/mx-grammar.fx';
 export * from './presets/environments.fx';
 export * from './presets/atmospheres.fx';
 
-// HTMX & htmxUI Bridges
+// HTMX & HTMX PRO Bridges
 export * from './htmx/htmx-bridge.fx';
 export * from './htmxui/htmxui-directive.fx';
 
@@ -53,9 +53,11 @@ import { HxCameraElement } from './elements/hx-camera.fx';
 import { HxAudioElement } from './elements/hx-audio.fx';
 import { HxColliderElement } from './elements/hx-collider.fx';
 import { HtmxBridge } from './htmx/htmx-bridge.fx';
-import { HtmxUIDirective } from './htmxui/htmxui-directive.fx';
+import { HtmxProDirective, HtmxUIDirective } from './htmxui/htmxui-directive.fx';
 
 export {
+  HtmxProDirective,
+  HtmxUIDirective,
   HxViewportElement,
   HxMeshElement,
   HxParticleElement,

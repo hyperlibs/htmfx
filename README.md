@@ -1,11 +1,11 @@
-# htmFX: Declarative 3D, WebGPU & Spatial Simulation Companion for htmxUI
+# htmFX: Declarative 3D, WebGPU & Spatial Simulation Companion for HTMX PRO
 
 <p align="center">
   <a href="https://github.com/hyperlibs/htmFX">
     <img src="https://img.shields.io/badge/htmFX-v1.0.0-6366f1?style=for-the-badge&logo=webgl&logoColor=white" alt="htmFX Version">
   </a>
-  <a href="https://github.com/hyperlibs/htmxUI">
-    <img src="https://img.shields.io/badge/htmxUI-Companion-06b6d4?style=for-the-badge" alt="htmxUI Companion">
+  <a href="https://github.com/hyperlibs/htmxpro">
+    <img src="https://img.shields.io/badge/HTMX_PRO-Companion-06b6d4?style=for-the-badge" alt="HTMX PRO Companion">
   </a>
   <a href="https://bundlephobia.com">
     <img src="https://img.shields.io/badge/bundle_size-~17.6KB_gzipped-10b981?style=for-the-badge" alt="Bundle Size">
@@ -19,7 +19,7 @@
 
 ## 🚀 Overview
 
-`htmFX` is a lightweight (~17.6KB gzipped), declarative 3D, WebGPU, and spatial simulation engine companion for [`htmxUI`](https://github.com/hyperlibs/htmxUI).
+`htmFX` is a lightweight (~17.6KB gzipped), declarative 3D, WebGPU, and spatial simulation engine companion for [`HTMX PRO`](https://github.com/hyperlibs/htmxpro).
 
 It eliminates 400-line Three.js boilerplate in favor of custom declarative HTML elements (`<hx-viewport>`, `<hx-mesh>`, `<hx-particle>`, `<hx-light>`, `<hx-emitter>`, `<hx-terrain>`) and flat `.mx` spatial coordinate grammar.
 
@@ -74,13 +74,13 @@ $$\vec{F}_{\text{drag}} = -\frac{1}{2} \cdot \rho(y) \cdot C_d(\text{Mach}) \cdo
 
 ---
 
-## 🔌 htmxUI Integration
+## 🔌 HTMX PRO Integration
 
-`htmFX` mounts automatically via `HTMXUI.directive`:
+`htmFX` mounts automatically via `HTMXPRO.directive` (with backward-compatible support for `HTMXUI.directive`):
 
 ```javascript
-// Native htmxUI Directive Mounting
-HTMXUI.directive('3d', (el, binding) => HtmFX.mount(el, binding));
+// Native HTMX PRO Directive Mounting
+HTMXPRO.directive('3d', (el, binding) => HtmFX.mount(el, binding));
 
 // 120 FPS High-Frequency Game Ticker Sync
 HxBolt.ticker.subscribe((timestamp, dt) => {

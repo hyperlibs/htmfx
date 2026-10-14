@@ -1,7 +1,7 @@
 {
   "name": "htmfx",
   "version": "1.0.0",
-  "description": "Declarative 3D, WebGPU & Spatial Simulation Companion for htmxUI",
+  "description": "Declarative 3D, WebGPU & Spatial Simulation Companion for HTMX PRO",
   "main": "dist/htmfx.js",
   "module": "dist/htmfx.js",
   "browser": "dist/htmfx.js",
@@ -14,9 +14,11 @@
     "preview": "vite preview"
   },
   "peerDependencies": {
+    "@hyperlibs/htmxpro": ">=1.0.0",
     "@hyperlibs/htmxui": ">=1.0.0"
   },
   "keywords": [
+    "htmxpro",
     "htmxui",
     "htmx",
     "3d",
